@@ -8,11 +8,11 @@ def parse_response(response):
 
         if item_0 is not None:
 
-            # if contains an image
+            # Si contiene imagen
             if item_0.images.primary.large is not None:
                 it_parsed["image"] = item_0.images.primary.large.url
 
-            # if contains a description
+            # Si contiene una descripción
             if item_0.item_info.features is not None and item_0.item_info.features.display_values is not None:
                 desc = ""
                 tmp = item_0.item_info.features.display_values
@@ -26,7 +26,7 @@ def parse_response(response):
                 if len(desc) > 24:
                     it_parsed["description"] = desc[0:24]
 
-            # if contains price and/or offer price
+            # Si contiene precio y/o precio de oferta
             if item_0.offers is not None and item_0.offers.listings[0] is not None and item_0.offers.listings[
                 0].price.savings is not None:
                 if item_0.offers.listings[0].is_buy_box_winner is not None:
@@ -37,15 +37,15 @@ def parse_response(response):
                     item_0.offers.listings[0].price.amount)
                 it_parsed["original_price"] = '%.2f' % (op)
 
-            # get item id
+            # Obtener el id de producto
             if item_0.asin is not None:
                 it_parsed["id"] = item_0.asin
 
-            # get item amazon url
+            # Obtener el link del producto
             if item_0.detail_page_url is not None:
                 it_parsed["url"] = item_0.detail_page_url
 
-            # get item title
+            # Obtener el titulo del producto
             if (
                     item_0.item_info is not None
                     and item_0.item_info.title is not None
@@ -53,7 +53,7 @@ def parse_response(response):
             ):
                 it_parsed["title"] = item_0.item_info.title.display_value
 
-            # get item price
+            # Obtener el precio del producto
             if (
                     item_0.offers is not None
                     and item_0.offers.listings is not None
